@@ -16,7 +16,7 @@ const readData = function (filePath) {
     const jsonString = fs.readFileSync(__dirname + filePath, "utf8");
     const data = JSON.parse(jsonString);
     if(data && !lodash.isEmpty(data.leaderboard)) {
-      data.leaderboard = lodash.sortBy(data.leaderboard, (result) => !result.points);
+      data.leaderboard = lodash.reverse(lodash.sortBy(data.leaderboard, (result) => result.points));
     }
     return data;
   } catch (err) {
