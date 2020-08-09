@@ -14,8 +14,11 @@ const writeData = function (filePath, data) {
 const readData = function (filePath) {
   try {
     const jsonString = fs.readFileSync(__dirname + filePath, "utf8");
-    const feedbacks = JSON.parse(jsonString);
-    return feedbacks;
+    const data = JSON.parse(jsonString);
+    if(data && !lodash.isEmpty(data.leaderboard)) {
+      data.leaderboard = lodash.sortBy(data.leaderboard, (result) => !result.points);
+    }
+    return data;
   } catch (err) {
     console.log(`Error while reading data from ${filePath}`);
     console.log(err);
